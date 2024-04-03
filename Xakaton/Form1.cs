@@ -18,7 +18,7 @@ namespace Xakaton
         MazeImages images;
         Image mazeImage;
         AbstractFactory factory;
-        int portalCount = 1;
+        int portalCount = 20;
         int winPortsls = 0;
         bool gameEnded = false;
         public Form1()
