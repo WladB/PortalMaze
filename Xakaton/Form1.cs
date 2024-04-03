@@ -18,7 +18,9 @@ namespace Xakaton
         MazeImages images;
         Image mazeImage;
         AbstractFactory factory;
-        int portalCount = 20;
+        int portalCount = 1;
+        int winPortsls = 0;
+        bool gameEnded = false;
         public Form1()
         {
             InitializeComponent();
@@ -93,8 +95,15 @@ namespace Xakaton
 
         private void RePaint()
         {
-            Point player = images.getByName("player").point;
-            mazeImage = maze.drawFragment(new Rectangle(player.X - 20, player.Y - 20, 40, 40), images, 20);
+            if (gameEnded)
+            {
+                mazeImage = new Bitmap(Resources.youWin);
+            }
+            else
+            {
+                Point player = images.getByName("player").point;
+                mazeImage = maze.drawFragment(new Rectangle(player.X - 20, player.Y - 20, 40, 40), images, 20);
+            }
             Graphics g = this.CreateGraphics();
             g.Clear(Color.White);
             g.DrawImage(mazeImage, (Width - mazeImage.Width) / 2, (Height - mazeImage.Height) / 2);
@@ -119,6 +128,11 @@ namespace Xakaton
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            if (gameEnded)
+            {
+                this.Close();
+                return;
+            }
             Point curPoint = images.getByName("player").point;
             switch (e.KeyCode)
             {
@@ -154,7 +168,7 @@ namespace Xakaton
                     break;
             }
             RePaint();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < portalCount; i++)
             {
                 if (images.getByName("portal" + i.ToString()).point == images.getByName("player").point)
                 {
@@ -165,6 +179,11 @@ namespace Xakaton
                     else
                     {
                         images.getByName("portal" + i.ToString()).point = new Point(-100, -100);
+                        winPortsls++;
+                        if(winPortsls >= portalCount)
+                        {
+                            gameEnded = true;
+                        }
                     }
                     RePaint();
                     break;
