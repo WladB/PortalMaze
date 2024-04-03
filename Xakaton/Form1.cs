@@ -56,7 +56,7 @@ namespace Xakaton
             images.sprites.Add(player);
 
             Random r = new Random();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < portalCount; i++)
             {
                 MazeSprite portal = new MazeSprite();
                 portal.image = new Bitmap(20, 20);
@@ -90,9 +90,12 @@ namespace Xakaton
                 }
             }
             Random r = new Random();
-            MazeTile portal1Tile = maze.freeTiles[r.Next(maze.freeTiles.Count)];
-            images.getByName("portal1").point = new Point(portal1Tile.x, portal1Tile.y);
-
+            for (int i = 0; i < portalCount; i++)
+            {
+                MazeTile portal1Tile = maze.freeTiles[r.Next(maze.freeTiles.Count)];
+                maze.freeTiles.Remove(portal1Tile);
+                images.getByName("portal" + i.ToString()).point = new Point(portal1Tile.x, portal1Tile.y);
+            }
 
         }
 
@@ -166,12 +169,12 @@ namespace Xakaton
                     if (!factory.play())
                     {
                         ReGenerateMaze();
-                        RePaint();
                     }
                     else
                     {
                         images.getByName("portal" + i.ToString()).point = new Point(-100, -100);
                     }
+                    RePaint();
                     break;
                 }
             }
