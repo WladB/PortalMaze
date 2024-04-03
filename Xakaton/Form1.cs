@@ -8,6 +8,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Xakaton.Properties;
 
 namespace Xakaton
 {
@@ -29,18 +30,11 @@ namespace Xakaton
             images = new MazeImages();
             Graphics g;
 
-            images.wall = new Bitmap(20, 20);
-            g = Graphics.FromImage(images.wall);
-            g.Clear(Color.Black);
-
-            images.passage = new Bitmap(20, 20);
-            g = Graphics.FromImage(images.passage);
-            g.Clear(Color.White);
+            images.wall = new Bitmap(Resources.wallTile);
+            images.passage = new Bitmap(Resources.roadTile);
 
             MazeSprite player = new MazeSprite();
-            player.image = new Bitmap(20, 20);
-            g = Graphics.FromImage(player.image);
-            g.Clear(Color.Red);
+            player.image = new Bitmap(Resources.player);
             player.name = "player";
 
             for (int i = maze.mazeTiles.GetLength(0) - 1; i > 0 ; i--)
@@ -59,9 +53,7 @@ namespace Xakaton
             for (int i = 0; i < portalCount; i++)
             {
                 MazeSprite portal = new MazeSprite();
-                portal.image = new Bitmap(20, 20);
-                g = Graphics.FromImage(portal.image);
-                g.Clear(Color.Purple);
+                portal.image = new Bitmap(Resources.msg608701733_164862_removebg_preview);
                 portal.name = "portal" + i.ToString();
                 MazeTile portal1Tile = maze.freeTiles[r.Next(maze.freeTiles.Count)];
                 maze.freeTiles.Remove(portal1Tile);

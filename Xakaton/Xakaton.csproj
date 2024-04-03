@@ -142,5 +142,9 @@
   <ItemGroup>
     <None Include="Resources\Goblin1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\roadTile.jpg" />
+    <Content Include="Resources\wallTile.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
